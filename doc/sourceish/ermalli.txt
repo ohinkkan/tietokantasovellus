@@ -1,0 +1,7 @@
+// Cool Class Diagram
+[Käyttäjä]++-*[Askare]
+[Käyttäjä]++-*[Askaretyyppi]
+[Käyttäjä]++-*[Tärkeysaste]
+[Askare]*-*[Askaretyyppi]
+[Askare]*-1[Tärkeysaste]
+[Askaretyyppi]0...1 yläluokkaa-0...n alaluokkaa[Askaretyyppi]

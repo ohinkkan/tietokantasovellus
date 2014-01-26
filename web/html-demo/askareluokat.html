@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+        <title>Askaremuistio - askareluokat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body class="container">
+        <div style="float:right"><a href="#">Kirjaudu ulos</a></div>
+        <div class="page-header">
+            <h1>Askaremuistio</h1>
+        </div>
+        <ul class="nav nav-tabs">
+            <li><a href="index.html">Askareet</a></li>
+            <li class="active"><a href="askareluokat.html">Askareluokat</a></li>
+            <li><a href="tarkeysasteet.html">Tärkeysasteet</a></li>
+        </ul>
+        <div >
+            <div style="float:left">
+                <h3>Askareluokat</h3>
+            </div>
+
+            <div style="float:right">
+                <br>
+                Filtteröi listaa: <input>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nimi</th>
+                        <th>Yläluokka</th>
+                        <th>Poista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Siivous</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Ei mitään <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Viikottainen</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Ei mitään <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Päivittäinen</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Ei mitään <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Keittiö</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Ei mitään <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Järjestys</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Siivous <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subsection">
+                <h4>Luo uusi askareluokka</h4>
+                Nimi: <input>
+                <br><br>
+                Valitse yläluokka:
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    Ei yläluokkaa<span class="caret"></span>
+                </button>
+
+                <br>
+                <br>
+                <button type="button" class="btn btn-sm btn-default">Lisää uusi luokka</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+        <title>Askaremuistio - askareen luonti</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body class="container">
+        <div style="float:right"><a href="#">Kirjaudu ulos</a></div>
+        <div class="page-header">
+            <h1>Askaremuistio</h1>
+        </div>
+        <ul class="nav nav-tabs">
+            <li><a href="index.html">Askareet</a></li>
+            <li><a href="askareluokat.html">Askareluokat</a></li>
+            <li><a href="tarkeysasteet.html">Tärkeysasteet</a></li>
+        </ul>
+        <div >
+            <div>
+                <h3>Askareen luonti tai muokkaus</h3>
+            </div>
+
+            <div class="subsection">
+                Nimi: <input type="text" placeholder="Imurointi">
+
+                Tärkeys:
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    Kriittinen<span class="caret"></span>
+                </button>
+
+
+
+                <h4>Kuvaus:</h4>
+                <textarea rows="4" style="width:100%">Kaikkien lattioiden imurointi huolellisesti.
+                </textarea>
+                <br>
+                <br>
+
+                Lisää luokka:
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    Valitse luokka<span class="caret"></span>
+                </button>
+                <button type="button" class="btn btn-xs btn-default">
+                    Lisää
+                </button>
+
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Luokka</th>
+                            <th>Poista</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Siivous</td>
+                            <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Viikottainen</td>
+                            <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            <br>
+            <button type="button" class="btn btn-xs btn-default">Tallenna</button>
+            <button type="button" class="btn btn-xs btn-default">Peruuta</button>
+            <button type="button" class="btn btn-xs btn-default">Poista askare</button>
+</div>
+        </div>
+    </body>
+</html>

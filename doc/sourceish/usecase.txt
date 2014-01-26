@@ -1,0 +1,17 @@
+// Cool Use Case Diagram
+[Käyttäjä]-(Kirjaudu sisään)
+[Käyttäjä]-(Tarkastele askarelistaa)
+[Käyttäjä]-(Luo uusi askare)
+(Luo uusi askare)>(Määritä tärkeysaste)
+(Luo uusi askare)>(Määritä luokitus tai luokitukset)
+[Käyttäjä]-(Muokkaa vanhaa askaretta)
+(Muokkaa vanhaa askaretta)>(Määritä tärkeysaste)
+(Muokkaa vanhaa askaretta)>(Määritä luokitus tai luokitukset)
+(Muokkaa vanhaa askaretta)>(Poista tärkeysaste)
+(Muokkaa vanhaa askaretta)>(Poista luokitus)
+[Käyttäjä]-(Poista askare)
+[Käyttäjä]-(Poista luokitus tietokannasta)
+[Käyttäjä]-(Poista tärkeysaste tietokannasta)
+[Käyttäjä]-(Luo uusi luokitus tai aliluokitus)
+[Käyttäjä]-(Luo uusi tärkeysaste)
+

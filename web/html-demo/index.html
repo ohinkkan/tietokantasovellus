@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+        <title>Askaremuistio - etusivu</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body class="container">
+        <div style="float:right"><a href="#">Kirjaudu ulos</a></div>
+        <div class="page-header">
+
+            <h1>Askaremuistio</h1>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="index.html">Askareet</a></li>
+            <li><a href="askareluokat.html">Askareluokat</a></li>
+            <li><a href="tarkeysasteet.html">Tärkeysasteet</a></li>
+        </ul>
+        <div >
+            <div style="float:left">
+                <h3>Askarelista</h3>
+            </div>
+
+            <div style="float:right">
+                <br>
+                Filtteröi listaa: <input>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Askare</th>
+                        <th>Tärkeys</th>
+                        <th>Luokat</th>
+                        <th>Tehty</th>
+                        <th>Päivitä tila</th>
+                        <th>Poista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="askareenluonti.html">Imurointi</a></td>
+                        <td>Kriittinen</td>
+                        <td>Siivous, Viikottainen</td>
+                        <td>Ei</td>
+                        <td><button type="button" class="btn btn-xs btn-default">Merkitse tehdyksi</button></td>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="askareenluonti.html">Tiskikoneen tyhjennys</a></td>
+                        <td>Medium</td>
+                        <td>Keittiö, Päivittäinen</td>
+                        <td>Kyllä</td>
+                        <td><button type="button" class="btn btn-xs btn-default">Merkitse tekemättömäksi</button></td>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><a href="askareenluonti.html">Keittiön kaapin siivous</a></td>
+                        <td>Jos viitsii</td>
+                        <td>Järjestys, Viikottainen, Keittiö</td>
+                        <td>Ei</td>
+                        <td><button type="button" class="btn btn-xs btn-default">Merkitse tehdyksi</button></td>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subsection">
+                <h4>Imurointi, tärkeys: Kriittinen</h4>
+                <h6>Luokat: Siivous, viikottainen</h6>
+                Kaikkien lattioiden imurointi huolellisesti.
+            </div>
+            <br>
+            <div class="subsection">
+                <a href="askareenluonti.html" role="button" class="btn btn-xs btn-default">Luo uusi askare</a>
+                <button type="button" class="btn btn-xs btn-default">Merkitse kaikki tehdyksi</button>
+                <button type="button" class="btn btn-xs btn-default">Merkitse kaikki tekemättömäksi</button>
+            </div>
+        </div>
+    </body>
+</html>

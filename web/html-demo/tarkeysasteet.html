@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+        <title>Askaremuistio - tärkeysasteet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body class="container">
+        <div style="float:right"><a href="#">Kirjaudu ulos</a></div>
+        <div class="page-header">
+            <h1>Askaremuistio</h1>
+        </div>
+        <ul class="nav nav-tabs">
+            <li><a href="index.html">Askareet</a></li>
+            <li><a href="askareluokat.html">Askareluokat</a></li>
+            <li class="active"><a href="tarkeysasteet.html">Tärkeysasteet</a></li>
+        </ul>
+        <div >
+            <div style="float:left">
+                <h3>Tärkeysasteet</h3>
+            </div>
+
+            <div style="float:right">
+                <br>
+                Filtteröi listaa: <input>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nimi</th>
+                        <th>Tärkeys</th>
+                        <th>Poista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Kriittinen</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                10 <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Medium</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                4 <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Jos viitsii</td>
+                        <td>  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                1 <span class="caret"></span>
+                            </button>
+                        <td><button type="button" class="btn btn-xs btn-default">Poista</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="subsection">
+                <h4>Luo uusi tärkeysaste</h4>
+                Nimi: <input>
+                <br><br>
+                Valitse tärkeys:
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    1<span class="caret"></span>
+                </button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-xs btn-default">Lisää uusi tärkeysaste</button>
+            </div>
+        </div>
+    </body>
+</html>

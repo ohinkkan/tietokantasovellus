@@ -1,8 +1,8 @@
 <?php
 require_once 'libs/connection.php';
-require_once 'libs/User.php';
+require_once 'libs/models/user.php';
 
-$lista = User::getUsers();
+$lista = user::getUsers();
 ?>
 
 

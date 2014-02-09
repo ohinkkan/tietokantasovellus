@@ -1,6 +1,3 @@
-<?php
-logOut();
-?>
 <body class = "container">
     <div class = "subsection">
         <form action = "tarkistus.php" method = "POST">

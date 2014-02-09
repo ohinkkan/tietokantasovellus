@@ -2,7 +2,7 @@
 require_once 'libs/connection.php';
 require_once 'libs/models/user.php';
 
-$lista = user::getUsers();
+$tasklist = user::getUsers();
 ?>
 
 
@@ -17,8 +17,8 @@ $lista = user::getUsers();
     <body>
         <h1>Listaelementtitesti</h1>
         <ul>
-            <?php foreach ($lista as $asia) { ?>
-                <li><?php echo $asia->getUsername(); ?></li>
+            <?php foreach ($tasklist as $task) { ?>
+                <li><?php echo $task->getUsername(); ?></li>
             <?php } ?>
         </ul>
     </body>

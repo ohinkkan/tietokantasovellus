@@ -19,7 +19,8 @@ id SERIAL PRIMARY KEY,
 name VARCHAR(30),
 descr VARCHAR(255),
 priority_id INTEGER REFERENCES priority(id) ON DELETE set null ON UPDATE cascade,
-dbuser_id INTEGER REFERENCES dbuser(id) ON DELETE cascade ON UPDATE cascade
+dbuser_id INTEGER REFERENCES dbuser(id) ON DELETE cascade ON UPDATE cascade,
+done INTEGER
 );
 
 CREATE TABLE tasktype

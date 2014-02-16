@@ -23,8 +23,16 @@ function logOut() {
 }
 
 function resetTaskEdit() {
-    unset($_SESSION['modifytasks']);
-    unset($_SESSION['newtasktypes']);
+    unset($_SESSION['taskdata']);
     unset($_SESSION['modify']);
-    unset($_SESSION['modifytask']);
+}
+
+function resetTasktypeEdit() {
+    unset($_SESSION['tasktypedata']);
+    unset($_SESSION['modify']);
+}
+
+function resetPriorityEdit() {
+    unset($_SESSION['prioritydata']);
+    unset($_SESSION['modify']);
 }

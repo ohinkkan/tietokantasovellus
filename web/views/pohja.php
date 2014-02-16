@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,18 +12,18 @@
         <meta name = "viewport" content = "width=device-width">
     </head>
 
-    <div class="page-header">
-        <h1>Askaremuistio</h1>
-    </div>
+
     <body class="container">
-        <?php if (!empty($data->virhe)): ?>
-            <div class="alert alert-danger"><?php echo $data->virhe; ?></div>
+        <?php if (!empty($_SESSION['virhe'])): ?>
+            <div class="alert alert-danger"><?php echo $_SESSION['virhe'];
+        unset($_SESSION["virhe"]) ?></div>
         <?php endif; ?>
-        <?php if (!empty($data->note)): ?>
-            <div class="alert alert-success"><?php echo $data->note; ?></div>
+        <?php if (!empty($_SESSION['note'])): ?>
+            <div class="alert alert-success"><?php echo $_SESSION['note'];
+            unset($_SESSION["note"]) ?></div>
         <?php endif; ?>
 
-        <?php require $sivu; ?>
+<?php require $sivu; ?>
     </body>
     <div style="float:right"><a href="rasite.php?logout=1">Kirjaudu ulos</a></div>
 </html>

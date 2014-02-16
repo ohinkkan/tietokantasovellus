@@ -52,6 +52,17 @@ class tasktype {
         return $results;
     }
 
+    public static function getTasktype($taskid) {
+        $sql = "SELECT id,name,upper_id,dbuser_id FROM tasktype WHERE id = ? LIMIT 1";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($taskid));
+
+        $result = $query->fetchObject();
+        $tasktype = new tasktype($result->id, $result->name, $result->upper_id, $result->dbuser_id);
+
+        return $tasktype;
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -70,6 +81,50 @@ class tasktype {
         } else {
             return $result->name;
         }
+    }
+
+    public function getUpper_id() {
+        if ($this->upper_id < 1) {
+            return 0;
+        }
+        return $this->upper_id;
+    }
+
+    public function filter($filter) {
+        if (empty($filter)) {
+            return true;
+        } elseif (strpos($this->name, $filter) !== false) {
+            return true;
+        }
+        $upper = tasktype::getTasktype($this->upper_id);
+        if (strpos($upper->getName(), $filter) !== false) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function addTasktype($name, $upper) {
+        if ($upper == 0) {
+            $upper = null;
+        }
+        $sql = "INSERT INTO tasktype(name, dbuser_id, upper_id) VALUES(?,?,?)";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($name, $_SESSION['userid'], $upper));
+    }
+
+    public static function updateTasktype($name, $upper, $id) {
+        if ($upper == 0) {
+            $upper = null;
+        }
+        $sql = "UPDATE tasktype SET name = ?, upper_id = ? WHERE id = ?";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($name, $upper, $id));
+    }
+
+    public static function delete($id) {
+        $sql = "DELETE FROM tasktype WHERE id = ? AND dbuser_id = ?";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($id, $_SESSION['userid']));
     }
 
 }

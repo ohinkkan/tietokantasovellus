@@ -8,29 +8,26 @@ require_once 'libs/models/task.php';
 $name = htmlspecialchars($_POST['name']);
 $descr = htmlspecialchars($_POST['descr']);
 $priority = htmlspecialchars($_POST['priority']);
+$_SESSION['taskdata']['name'] = $name;
+$_SESSION['taskdata']['descr'] = $descr;
+$_SESSION['taskdata']['priority'] = $priority;
 
 if (empty($_POST['name'])) {
-    displayView('views/luoaskare.php', array('virhe' => "Et antanut nimeä askareelle.",'name'=>$name,'descr'=>$descr,'priority'=>$priority));
-}
-
-if (strlen($name) > 30) {
-    displayView('views/luoaskare.php', array('virhe' => "Liian pitkä nimi askareelle.",'name'=>$name,'descr'=>$descr,'priority'=>$priority));
-}
-
-if (strlen($descr) > 255) {
-    displayView('views/luoaskare.php', array('virhe' => "Liian pitkä kuvaus askareelle.",'name'=>$name,'descr'=>$descr,'priority'=>$priority));
-}
-
-if (count($_SESSION['newtasktypes']) < 1) {
-    displayView('views/luoaskare.php', array('virhe' => "Ei luokkaa askareella.",'name'=>$name,'descr'=>$descr,'priority'=>$priority));
-}
-
-
-if ($_SESSION['modify']) {
-    task::delete($_SESSION['modifytask']);
+    $_SESSION['virhe'] = "Et antanut nimeä askareelle.";
+    header('Location: askareenluonti.php');
+} elseif (strlen($name) > 30) {
+    $_SESSION['virhe'] = "Liian pitkä nimi askareelle.";
+    header('Location: askareenluonti.php');
+} elseif (strlen($descr) > 255) {
+    $_SESSION['virhe'] = "Liian pitkä kuvaus askareelle.";
+    header('Location: askareenluonti.php');
+} elseif ($_SESSION['modify']) {
+    task::delete($_SESSION['taskdata']['modifytask']);
     task::addTask($name, $descr, $priority);
-    displayView('views/etusivu.php', array('note' => "Askaretta muokattu onnistuneesti.",));
+    $_SESSION['note'] = "Askaretta muokattu onnistuneesti.";
+    header('Location: index.php');
 } else {
     task::addTask($name, $descr, $priority);
-    displayView('views/etusivu.php', array('note' => "Askare lisätty onnistuneesti.",));
+    $_SESSION['note'] = "Askare lisätty onnistuneesti.";
+    header('Location: index.php');
 }

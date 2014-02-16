@@ -1,66 +1,3 @@
-<?php
-session_start();
-require_once 'libs/connection.php';
-require_once 'libs/models/user.php';
-require_once 'libs/models/task.php';
-require_once 'libs/models/priority.php';
-require_once 'libs/models/tasktype.php';
-
-
-
-$_SESSION['modifytask'] = (int) $_GET['id'];
-$id = $_SESSION['modifytask'];
-
-if (isset($data->name)) {
-    $newname = $data->name;
-} else {
-    $newname = task::getTask($id)->getName();
-}
-if (isset($data->priority)) {
-    $newpriority = $data->priority;
-} else {
-    $newpriority = task::getTask($id)->getPriority_id();
-}
-if (isset($data->descr)) {
-    $newdescr = $data->descr;
-} else {
-    $newdescr = task::getTask($id)->getDescr();
-}
-
-if (empty($_SESSION['newtasktypes']) and empty($_SESSION['modifytasks'])) {
-    $_SESSION['newtasktypes'] = array();
-}
-
-if (empty($_SESSION['modifytasks'])) {
-    if ($id > 0) {
-        $types = tasktype::getTypesForTask($id);
-        foreach ($types as $type) {
-            $_SESSION['newtasktypes'][$type->getId()] = $type->getId();
-        }
-    }
-    $_SESSION['modifytasks'] = true;
-}
-if (isset($_GET['add'])) {
-    $add = (int) $_GET['add'];
-    $_SESSION['newtasktypes'][$add] = $add;
-}
-if (isset($_GET['remove'])) {
-    unset($_SESSION['newtasktypes'][$_GET['remove']]);
-}
-if (isset($_GET['modify'])) {
-    $_SESSION['modify'] = true;
-}
-?>
-
-<script>
-    function loadXMLDoc(var1)
-    {
-        var gets = "id=<?php echo $id ?>" + "&add=" + var1;
-        window.location = "askareenluonti.php?" + gets;
-    }
-</script>
-
-<?php require 'views/ylapalkki.php' ?>
 <div>
     <div>
         <h3>Askareen <?php
@@ -73,22 +10,21 @@ if (isset($_GET['modify'])) {
     </div>
     <form action = "askaretarkistus.php" method = "POST">
         <div class="subsection">
-            Nimi: <input type="text" value="<?php echo $newname ?>" name = "name">
+            Nimi: <input type="text" value="<?php echo $_SESSION['taskdata']['name'] ?>" name = "name">
             Tärkeys:
             <select class="btn btn-default btn-xs" name = "priority">
                 <?php
-                $priorities = priority::getPrioritiesSorted($_SESSION['userid']);
-                foreach ($priorities as $priority) {
+                foreach ($_SESSION['taskdata']['priorities'] as $current) {
                     ?>
-                    <option value="<?php echo $priority->getId() ?>"<?php
-                    if ($priority->getId() === $newpriority) {
+                    <option value="<?php echo $current->getId() ?>"<?php
+                    if ($current->getId() === $_SESSION['taskdata']['priority']) {
                         echo "selected";
                     }
-                    ?>><?php echo $priority->getName() ?></option>
+                    ?>><?php echo $current->getName() ?></option>
                         <?php } ?>
             </select>
             <h4>Kuvaus:</h4>
-            <textarea rows="4" style="width:100%" name = "descr"><?php echo $newdescr ?></textarea>
+            <textarea rows="4" style="width:100%" name = "descr"><?php echo $_SESSION['taskdata']['descr'] ?></textarea>
             <br>
             <br>  <div class="btn-group">
                 Lisää luokka:
@@ -96,9 +32,11 @@ if (isset($_GET['modify'])) {
                     Valitse luokka <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
+                    <?php if (empty($_SESSION['taskdata']['tasktypes'])) { ?>
+                        <li><a href="askareluokat.php">Ei yhtään luokkaa määritettynä, klikkaa mennäksesi luontisivulle</a></li>
                     <?php
-                    $tasktypes = tasktype::getTasktypesSorted($_SESSION['userid']);
-                    foreach ($tasktypes as $type) {
+                    }
+                    foreach ($_SESSION['taskdata']['tasktypes'] as $type) {
                         ?>
                         <li><a href="#" id="<?php echo $type->getId() ?>" ><?php echo $type->getName() ?></a></li>
                         <script>
@@ -123,12 +61,12 @@ if (isset($_GET['modify'])) {
                     <tbody>
                         <?php
                         $count = 1;
-                        foreach ($_SESSION['newtasktypes'] as $typeid) {
+                        foreach ($_SESSION['taskdata']['newtasktypes'] as $typeid) {
                             ?>
                             <tr>
                                 <td><?php echo $count ?></td>
                                 <td><?php echo tasktype::getTasktypeName($typeid) ?></td>
-                                <td><a href="askareenluonti.php?id=<?php echo $id ?>&remove=<?php echo $typeid ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
+                                <td><a href="askareenluonti.php?id=<?php echo $_SESSION['taskdata']['modifytask'] ?>&remove=<?php echo $typeid ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
                             </tr>
                             <?php
                             $count++;
@@ -139,6 +77,9 @@ if (isset($_GET['modify'])) {
             </div>
             <br>
             <button type="submit" class="btn btn-xs btn-default">Tallenna</button>
+            <?php if ($_SESSION['modify']) { ?>
+                <a href="askareenluonti.php?new=true" role="button" class="btn btn-xs btn-default">Tee uusi askare</a>
+            <?php } ?>
         </div>
     </form>
 </div>

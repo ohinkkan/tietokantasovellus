@@ -46,7 +46,7 @@ class priority {
         $query->execute(array($id));
         $result = $query->fetchObject();
         if ($result == null) {
-            return null;
+            return 'Ei asetettu!';
         } else {
             return $result->name;
         }
@@ -59,7 +59,7 @@ class priority {
 
         $results = array();
         foreach ($query->fetchAll(PDO::FETCH_OBJ) as $result) {
-            $priority = new Task($result->id, $result->name, $result->importance, $result->dbuser_id);
+            $priority = new Priority($result->id, $result->name, $result->importance, $result->dbuser_id);
             $results[] = $priority;
         }
         return $results;
@@ -71,6 +71,40 @@ class priority {
 
     public function getName() {
         return $this->name;
+    }
+
+    public function getImportance() {
+        return $this->importance;
+    }
+
+    public function filter($filter) {
+        if (empty($filter)) {
+            return true;
+        } elseif (strpos($this->name, $filter) !== false) {
+            return true;
+        }
+        if (strpos($this->importance, $filter) !== false) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function addPriority($name, $importance) {
+        $sql = "INSERT INTO priority(name, importance, dbuser_id) VALUES(?,?,?)";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($name, $importance, $_SESSION['userid']));
+    }
+
+    public static function updatePriority($name, $importance, $id) {
+        $sql = "UPDATE priority SET name = ?, importance = ? WHERE id = ?";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($name, $importance, $id));
+    }
+
+    public static function delete($id) {
+        $sql = "DELETE FROM priority WHERE id = ? AND dbuser_id = ?";
+        $query = getDatabaseconnection()->prepare($sql);
+        $query->execute(array($id, $_SESSION['userid']));
     }
 
 }

@@ -10,16 +10,14 @@ class task {
     private $descr;
     private $priority_id;
     private $dbuser_id;
-    private $importance;
     private $done;
 
-    function __construct($id, $name, $descr, $priority_id, $dbuser_id, $importance, $done) {
+    function __construct($id, $name, $descr, $priority_id, $dbuser_id, $done) {
         $this->id = $id;
         $this->name = $name;
         $this->descr = $descr;
         $this->priority_id = $priority_id;
         $this->dbuser_id = $dbuser_id;
-        $this->importance = $importance;
         $this->done = $done;
     }
 
@@ -35,9 +33,12 @@ class task {
         if (strpos($priority, $filter) !== false) {
             return true;
         }
-        $tasktypes = tasktype::getTasktypes($this->id);
+        if (strpos('Ei asetettu!', $filter) !== false and $this->priority_id == 0) {
+            return true;
+        }
+        $tasktypes = tasktype::getTypesForTask($this->id);
         foreach ($tasktypes as $type) {
-            if (strpos($type, $filter) !== false) {
+            if ($type->filter($filter)) {
                 return true;
             }
         }
@@ -45,14 +46,17 @@ class task {
     }
 
     public static function getTask($id) {
-        $sql = "SELECT task.id,task.name,descr,priority_id,task.dbuser_id,importance,done FROM task,priority WHERE task.priority_id = priority.id AND task.id = ? LIMIT 1";
+        $sql = "SELECT id,name,descr,priority_id,dbuser_id, done FROM task WHERE id = ? LIMIT 1";
         $query = getDatabaseconnection()->prepare($sql);
         $query->execute(array($id));
         $result = $query->fetchObject();
         if ($result == null) {
-            return new Task(0, "", "", 0, $id, 0, 0);
+            return new Task(0, "", "", 0, $id, 0);
         } else {
-            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->importance, $result->done);
+            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->done);
+            if ($task->priority_id == null) {
+                $task->priority_id = 0;
+            }
             return $task;
         }
     }
@@ -64,21 +68,24 @@ class task {
 
         $results = array();
         foreach ($query->fetchAll(PDO::FETCH_OBJ) as $result) {
-            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->importance, $result->done);
+            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->done);
             $results[] = $task;
         }
         return $results;
     }
 
     public static function getTasksSorted($userId) {
-        $sql = "SELECT task.id,task.name,descr,priority_id,task.dbuser_id,importance,done FROM task,priority WHERE task.priority_id = priority.id AND task.dbuser_id = ? ORDER BY importance DESC, done, name";
+        $sql = "SELECT DISTINCT task.id,task.name,descr,priority_id,task.dbuser_id,done,importance FROM task,priority WHERE (task.priority_id = priority.id or task.priority_id is null) AND task.dbuser_id = ? ORDER BY done, importance DESC,  name";
         $query = getDatabaseconnection()->prepare($sql);
         $query->execute(array($userId));
 
         $results = array();
         foreach ($query->fetchAll(PDO::FETCH_OBJ) as $result) {
-            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->importance, $result->done);
-            $results[] = $task;
+            $task = new Task($result->id, $result->name, $result->descr, $result->priority_id, $result->dbuser_id, $result->done);
+            if ($task->priority_id == null) {
+                $task->priority_id = 0;
+            }
+            $results[$task->id] = $task;
         }
         return $results;
     }
@@ -118,7 +125,7 @@ class task {
 
         $newId = $query->fetchColumn();
 
-        foreach ($_SESSION['newtasktypes'] as $type) {
+        foreach ($_SESSION['taskdata']['newtasktypes'] as $type) {
             $sql = "INSERT INTO typetasklink(task_id, tasktype_id) VALUES(?,?)";
             $query = getDatabaseconnection()->prepare($sql);
             $query->execute(array($newId, $type));

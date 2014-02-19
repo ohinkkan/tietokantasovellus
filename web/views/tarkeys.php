@@ -11,36 +11,38 @@
             <button type = "submit">Filtteröi</button>
         </form>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nimi</th>
-                <th>Suhteellinen tärkeys (isompi on tärkeämpi)</th>
-                <th>Poista</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $count = 1;
-            foreach ($_SESSION['prioritydata']['priorities'] as $priority) {
-                ?>
-                <?php if ($priority->filter($_SESSION['prioritydata']['filter'])) { ?>
-                    <tr>
-                        <td><?php echo $count ?></td>
-                        <td><a href="tarkeysasteet.php?typeid=<?php echo $priority->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $priority->getName() ?></a></td>
-                        <td>
-                            <?php
-                            echo $priority->getImportance();
-                            $count++
-                            ?>
-                        </td>
-                        <td><a href="tarkeysasteet.php?remove=<?php echo $priority->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
-                    </tr>
+    <div style = "clear:both">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nimi</th>
+                    <th>Suhteellinen tärkeys (isompi on tärkeämpi)</th>
+                    <th>Poista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $count = 1;
+                foreach ($_SESSION['prioritydata']['priorities'] as $priority) {
+                    ?>
+                    <?php if ($priority->filter($_SESSION['prioritydata']['filter'])) { ?>
+                        <tr>
+                            <td><?php echo $count ?></td>
+                            <td><a href="tarkeysasteet.php?typeid=<?php echo $priority->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $priority->getName() ?></a></td>
+                            <td>
+                                <?php
+                                echo $priority->getImportance();
+                                $count++
+                                ?>
+                            </td>
+                            <td><a href="tarkeysasteet.php?remove=<?php echo $priority->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <div class="subsection">
         <form action = "tarkeystarkistus.php" method = "POST">
             <?php if ($_SESSION['modify']) { ?>
@@ -55,10 +57,10 @@
                 for ($i = 1; $i <= 10; $i++) {
                     ?>
                     <option value="<?php echo $i ?>"<?php
-                        if ($i == $_SESSION['prioritydata']['importance']) {
-                            echo "selected";
-                        }
-                        ?>>
+                    if ($i == $_SESSION['prioritydata']['importance']) {
+                        echo "selected";
+                    }
+                    ?>>
                         <?php echo $i ?></option>
                 <?php } ?>
             </select>

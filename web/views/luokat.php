@@ -11,39 +11,41 @@
             <button type = "submit">Filtteröi</button>
         </form>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nimi</th>
-                <th>Yläluokka</th>
-                <th>Poista</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $count = 1;
-            foreach ($_SESSION['tasktypedata']['tasktypes'] as $tasktype) {
-                ?>
-                <?php if ($tasktype->filter($_SESSION['tasktypedata']['filter'])) { ?>
-                    <tr>
-                        <td><?php echo $count ?></td>
-                        <td><a href="askareluokat.php?typeid=<?php echo $tasktype->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $tasktype->getName() ?></a></td>
-                        <td>
-                            <?php
-                            if (($tasktype->getUpper_id()) < 1) {
-                                echo "Ei mikään";
-                            } else {
-                                echo tasktype::getTasktypeName($tasktype->getUpper_id());
-                            }
-                            $count++;
-                            ?>
-                        <td><a href="askareluokat.php?remove=<?php echo $tasktype->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
-                    </tr>
+    <div style = "clear:both">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nimi</th>
+                    <th>Yläluokka</th>
+                    <th>Poista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $count = 1;
+                foreach ($_SESSION['tasktypedata']['tasktypes'] as $tasktype) {
+                    ?>
+                    <?php if ($tasktype->filter($_SESSION['tasktypedata']['filter'])) { ?>
+                        <tr>
+                            <td><?php echo $count ?></td>
+                            <td><a href="askareluokat.php?typeid=<?php echo $tasktype->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $tasktype->getName() ?></a></td>
+                            <td>
+                                <?php
+                                if (($tasktype->getUpper_id()) < 1) {
+                                    echo "Ei mikään";
+                                } else {
+                                    echo tasktype::getTasktypeName($tasktype->getUpper_id());
+                                }
+                                $count++;
+                                ?>
+                            <td><a href="askareluokat.php?remove=<?php echo $tasktype->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     <div class="subsection">
         <form action = "luokkatarkistus.php" method = "POST">
             <?php if ($_SESSION['modify']) { ?>

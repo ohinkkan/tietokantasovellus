@@ -10,55 +10,56 @@
             <button type = "submit">Filtteröi</button>
         </form>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Askare</th>
-                <th>Tärkeys</th>
-                <th>Luokat</th>
-                <th>Tehty</th>
-                <th>Päivitä tila</th>
-                <th>Poista</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $count = 1;
-            foreach ($data->tasklist as $task) {
-                ?>    <?php if ($task->filter($data->filter)) : ?>
-                    <tr>
-                        <td><?php echo $count ?></td>
-                        <td><a href="index.php?taskId=<?php echo $task->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $task->getName() ?></a></td>
-                        <td><?php echo priority::getPriorityName($task->getPriority_id()) ?></td>
-                        <td><?php
-                            $tasktypes = tasktype::getTasktypes($task->getId());
-                            foreach ($tasktypes as $type) {
-                                echo $type . " ";
-                            }
-                            ?></td>
-                        <td><?php
-                            if ($task->getDone() === 0) {
-                                echo "Ei";
-                            } else {
-                                echo "Kyllä";
-                            }
-                            ?></td>
-                        <td><a href="rasite.php?donetoggle=<?php echo $task->getId() ?>" role="button" class="btn btn-xs btn-default"><?php
-                            if ($task->getDone() === 0) {
-                                echo "Merkitse tehdyksi";
-                            } else {
-                                echo "Merkitse tekemättömäksi";
-                            }
-                            $count++;
-                            ?></a></td>
-                        <td><a href="rasite.php?delete=<?php echo $task->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
-                    </tr>
-                <?php endif; ?>
-            <?php } ?>
-        </tbody>
-    </table>
-
+    <div style = "clear:both">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Askare</th>
+                    <th>Tärkeys</th>
+                    <th>Luokat</th>
+                    <th>Tehty</th>
+                    <th>Päivitä tila</th>
+                    <th>Poista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $count = 1;
+                foreach ($data->tasklist as $task) {
+                    ?>    <?php if ($task->filter($data->filter)) : ?>
+                        <tr>
+                            <td><?php echo $count ?></td>
+                            <td><a href="index.php?taskId=<?php echo $task->getId() ?>&filter=<?php echo htmlspecialchars($_GET["filter"]) ?>"><?php echo $task->getName() ?></a></td>
+                            <td><?php echo priority::getPriorityName($task->getPriority_id()) ?></td>
+                            <td><?php
+                                $tasktypes = tasktype::getTasktypes($task->getId());
+                                foreach ($tasktypes as $type) {
+                                    echo $type . " ";
+                                }
+                                ?></td>
+                            <td><?php
+                                if ($task->getDone() === 0) {
+                                    echo "Ei";
+                                } else {
+                                    echo "Kyllä";
+                                }
+                                ?></td>
+                            <td><a href="rasite.php?donetoggle=<?php echo $task->getId() ?>" role="button" class="btn btn-xs btn-default"><?php
+                                    if ($task->getDone() === 0) {
+                                        echo "Merkitse tehdyksi";
+                                    } else {
+                                        echo "Merkitse tekemättömäksi";
+                                    }
+                                    $count++;
+                                    ?></a></td>
+                            <td><a href="rasite.php?delete=<?php echo $task->getId() ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
     <?php if ($data->taskId > 0) : ?>
         <div class="subsection">
             <h4><?php echo $data->active->getName() ?>, tärkeys:

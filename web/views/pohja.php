@@ -15,16 +15,22 @@
 
     <body class="container">
         <?php if (!empty($_SESSION['virhe'])): ?>
-            <div class="alert alert-danger"><?php echo $_SESSION['virhe'];
-        unset($_SESSION["virhe"]) ?></div>
+            <div class="alert alert-danger"><?php
+                echo $_SESSION['virhe'];
+                unset($_SESSION["virhe"])
+                ?></div>
         <?php endif; ?>
         <?php if (!empty($_SESSION['note'])): ?>
-            <div class="alert alert-success"><?php echo $_SESSION['note'];
-            unset($_SESSION["note"]) ?></div>
+            <div class="alert alert-success"><?php
+                echo $_SESSION['note'];
+                unset($_SESSION["note"])
+                ?></div>
         <?php endif; ?>
 
-<?php require $sivu; ?>
+        <?php require $sivu; ?>
     </body>
-    <div style="float:right"><a href="rasite.php?logout=1">Kirjaudu ulos</a></div>
+    <?php if (isset($_SESSION['kirjautunut'])) { ?>
+        <div style="float:right"><a href="rasite.php?logout=1">Kirjaudu ulos</a></div>
+    <?php } ?>
 </html>
 

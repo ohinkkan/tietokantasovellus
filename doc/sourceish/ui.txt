@@ -1,0 +1,6 @@
+// Cool Class Diagram
+[Sisäänkirjautuminen]-vain käyttäjillä pääsy>[Etusivu eli askarelista]
+[Etusivu eli askarelista]<->[Askareen luonti tai muokkaus]
+[note:Navigaatiopalkki]-[Etusivu eli askarelista]
+[note:Navigaatiopalkki]-[Askareluokat]
+[note:Navigaatiopalkki]-[Tärkeysasteet]

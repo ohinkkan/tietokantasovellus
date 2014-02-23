@@ -1,4 +1,5 @@
 <?php
+
 require_once 'libs/utilities.php';
 isLoggedIn();
 
@@ -12,14 +13,21 @@ require_once 'libs/models/task.php';
 require_once 'libs/models/priority.php';
 require_once 'libs/models/tasktype.php';
 
-# this controller is a mess. Had to start with the trickiest page. Perhaps I shall refactor it, someday.
+// this controller is a mess. Had to start with the trickiest page. Perhaps I shall refactor it, someday.
+//
+// session data information specific to this page:
+// session array 'taskdata' includes data for currently active (new or modified) task.
+//
+// of particular note is the sub-array 'newtasktypes' which includes
+// the tasktypes which the task will have if saved.
+//
+// 'modify' is true if we are modifying an old task
+// variable $id is the id of this task
 
 $id = $_GET['id'];
-
-if ($id > 0) {
+if ($id > 0 or $_SESSION['taskdata']['modifytask'] > 0 ) {
     $_SESSION['modify'] = TRUE;
 }
-
 if (empty($_SESSION['taskdata']) OR $_GET['new']) {
     if ($_GET['new']) {
         unset($_SESSION['taskdata']);
@@ -42,19 +50,14 @@ if (empty($_SESSION['taskdata']['priorities'])) {
     exit();
 }
 
-
-if (empty($_SESSION['newtasktypes']) and empty($_SESSION['taskdata']['modifytasks'])) {
+if (empty($_SESSION['taskdata']['newtasktypes'])) {
     $_SESSION['taskdata']['newtasktypes'] = array();
-}
-
-if (empty($_SESSION['taskdata']['modifytasks'])) {
     if ($id > 0) {
         $types = tasktype::getTypesForTask($id);
         foreach ($types as $type) {
             $_SESSION['taskdata']['newtasktypes'][$type->getId()] = $type->getId();
         }
     }
-    $_SESSION['taskdata']['modifytasks'] = true;
 }
 
 if (isset($_GET['add'])) {
@@ -63,18 +66,7 @@ if (isset($_GET['add'])) {
 if (isset($_GET['remove'])) {
     unset($_SESSION['taskdata']['newtasktypes'][$_GET['remove']]);
 }
-if (isset($_GET['modify'])) {
-    $_SESSION['modify'] = true;
-}
 ?>
-
-<script>
-    function loadXMLDoc(var1)
-    {
-        var gets = "id=<?php echo $id ?>" + "&add=" + var1;
-        window.location = "askareenluonti.php?" + gets;
-    }
-</script>
 
 <?php
 require 'views/ylapalkki.php';

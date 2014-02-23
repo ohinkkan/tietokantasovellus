@@ -6,7 +6,7 @@
             } else {
                 echo luonti;
             }
-            ?> - muuta luokkia ensimmäiseksi, koska <b>ajax + sessions = fail</b>, voi ajan haaskausta -_-</h3>
+            ?></h3>
     </div>
     <form action = "askaretarkistus.php" method = "POST">
         <div class="subsection">
@@ -17,7 +17,7 @@
                 foreach ($_SESSION['taskdata']['priorities'] as $current) {
                     ?>
                     <option value="<?php echo $current->getId() ?>"<?php
-                    if ($current->getId() === $_SESSION['taskdata']['priority']) {
+                    if ($current->getId() == $_SESSION['taskdata']['priority']) {
                         echo "selected";
                     }
                     ?>><?php echo $current->getName() ?></option>
@@ -34,17 +34,12 @@
                 <ul class="dropdown-menu" role="menu">
                     <?php if (empty($_SESSION['taskdata']['tasktypes'])) { ?>
                         <li><a href="askareluokat.php">Ei yhtään luokkaa määritettynä, klikkaa mennäksesi luontisivulle</a></li>
-                    <?php
+                        <?php
                     }
                     foreach ($_SESSION['taskdata']['tasktypes'] as $type) {
                         ?>
-                        <li><a href="#" id="<?php echo $type->getId() ?>" ><?php echo $type->getName() ?></a></li>
-                        <script>
-                            $("#<?php echo $type->getId() ?>").click(function(e) {
-                                loadXMLDoc(<?php echo $type->getId() ?>);
-                                e.preventDefault();
-                            });
-                        </script>
+                        <li><button type="submit" value="<?php echo $type->getId() ?>" name="addtype"/>
+                        <?php echo $type->getName() ?></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -66,7 +61,8 @@
                             <tr>
                                 <td><?php echo $count ?></td>
                                 <td><?php echo tasktype::getTasktypeName($typeid) ?></td>
-                                <td><a href="askareenluonti.php?id=<?php echo $_SESSION['taskdata']['modifytask'] ?>&remove=<?php echo $typeid ?>" role="button" class="btn btn-xs btn-default">Poista</a></td>
+                                <td><button class="btn btn-xs btn-default" type="submit" value="<?php echo $typeid ?>" name="removetype"/>
+                        Poista
                             </tr>
                             <?php
                             $count++;

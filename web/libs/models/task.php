@@ -22,18 +22,19 @@ class task {
     }
 
     public function filter($filter) {
+        $filter = strtolower($filter);
         if (empty($filter)) {
             return true;
-        } elseif (strpos($this->name, $filter) !== false) {
+        } elseif (strpos(strtolower($this->name), $filter) !== false) {
             return true;
-        } elseif (strpos($this->descr, $filter) !== false) {
+        } elseif (strpos(strtolower($this->descr), $filter) !== false) {
             return true;
         }
         $priority = priority::getPriorityName($this->priority_id);
-        if (strpos($priority, $filter) !== false) {
+        if (strpos(strtolower($priority), $filter) !== false) {
             return true;
         }
-        if (strpos('Ei asetettu!', $filter) !== false and $this->priority_id == 0) {
+        if (strpos(strtolower('Ei asetettu!'), $filter) !== false and $this->priority_id == 0) {
             return true;
         }
         $tasktypes = tasktype::getTypesForTask($this->id);

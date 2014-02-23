@@ -14,12 +14,20 @@ require_once 'libs/models/task.php';
 require_once 'libs/models/priority.php';
 require_once 'libs/models/tasktype.php';
 
+// session data information specific to this page:
+// session array 'tasktypedata' includes data for currently active (new or modified) tasktype.
+
+// 'modify' is true if we are modifying an old tasktype
+// variable $id is the id of this tasktype
+
+
 if ($_GET['typeid'] > 0) {
     $id = $_GET['typeid'];
     $_SESSION['modify'] = true;
 } else {
     $id = 0;
     unset($_SESSION['modify']);
+    unset($_SESSION['tasktypedata']);
 }
 
 if (empty($_SESSION['tasktypedata']) OR $_GET['new']) {

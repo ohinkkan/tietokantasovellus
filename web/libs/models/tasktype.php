@@ -15,7 +15,7 @@ class tasktype {
     }
 
     public static function getTasktypes($task_id) {
-        $sql = "SELECT name FROM tasktype,typetasklink WHERE tasktype.id = tasktype_id AND task_id = ?";
+        $sql = "SELECT name FROM tasktype,typetasklink WHERE tasktype.id = tasktype_id AND task_id = ? ORDER BY name";
         $query = getDatabaseconnection()->prepare($sql);
         $query->execute(array($task_id));
 
@@ -27,7 +27,7 @@ class tasktype {
     }
 
     public static function getTypesForTask($task_id) {
-        $sql = "SELECT tasktype.id,name,upper_id,dbuser_id FROM tasktype,typetasklink WHERE tasktype.id = tasktype_id AND task_id = ?";
+        $sql = "SELECT tasktype.id,name,upper_id,dbuser_id FROM tasktype,typetasklink WHERE tasktype.id = tasktype_id AND task_id = ? ORDER BY name";
         $query = getDatabaseconnection()->prepare($sql);
         $query->execute(array($task_id));
 
@@ -91,13 +91,14 @@ class tasktype {
     }
 
     public function filter($filter) {
+        $filter = strtolower($filter);
         if (empty($filter)) {
             return true;
-        } elseif (strpos($this->name, $filter) !== false) {
+        } elseif (strpos(strtolower($this->name), $filter) !== false) {
             return true;
         }
         $upper = tasktype::getTasktype($this->upper_id);
-        if (strpos($upper->getName(), $filter) !== false) {
+        if (strpos(strtolower($upper->getName()), $filter) !== false) {
             return true;
         }
         return false;

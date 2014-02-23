@@ -78,9 +78,10 @@ class priority {
     }
 
     public function filter($filter) {
+        $filter = strtolower($filter);
         if (empty($filter)) {
             return true;
-        } elseif (strpos($this->name, $filter) !== false) {
+        } elseif (strpos(strtolower($this->name), $filter) !== false) {
             return true;
         }
         if (strpos($this->importance, $filter) !== false) {

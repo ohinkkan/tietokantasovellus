@@ -12,7 +12,15 @@ $_SESSION['taskdata']['name'] = $name;
 $_SESSION['taskdata']['descr'] = $descr;
 $_SESSION['taskdata']['priority'] = $priority;
 
-if (empty($_POST['name'])) {
+if (($_POST['addtype'])) {
+    $_SESSION['note'] = "Askareluokka lisätty.";
+    $add = htmlspecialchars($_POST['addtype']);
+    header('Location: askareenluonti.php?add='.$add);
+} elseif (($_POST['removetype'])) {
+    $_SESSION['note'] = "Askareluokka poistettu.";
+    $remove = htmlspecialchars($_POST['removetype']);
+    header('Location: askareenluonti.php?remove='.$remove);
+} elseif (empty($_POST['name'])) {
     $_SESSION['virhe'] = "Et antanut nimeä askareelle.";
     header('Location: askareenluonti.php');
 } elseif (strlen($name) > 30) {

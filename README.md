@@ -1,4 +1,4 @@
 tietokantasovellus
 ==================
 Yksinkertainen tietokantaa hyödyntävä webbisovellus. Tarkemmin:
-http://ohinkkan.users.cs.helsinki.fi/tsoha/web/esittelysivu.html
+https://github.com/ohinkkan/tietokantasovellus/blob/master/doc/dokumentaatio.pdf
